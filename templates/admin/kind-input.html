@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品列表</title>
+    <link rel="stylesheet" href="../../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../../static/css/me.css">
+    <script src="https://kit.fontawesome.com/3a26109221.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!--内容-->
+<div class="container-fluid" style="background: #f1f2f7;height: 700px">
+    <!--table信息-->
+    <div class="row pt-5">
+        <form class="container">
+            <div class="form-group row text-center m-auto">
+                <div class="col-12 row mt-3">
+                    <span class="col-1 btn btn-secondary add-name">类别名称</span>
+                    <input type="text" class="add-input form-control border col-3">
+                </div>
+                <div class="col-12 row mt-3">
+                    <span class="col-1 btn btn-secondary add-name">类别描述</span>
+                    <input type="text" class="add-input form-control border col-11">
+                </div>
+                <div class="col-12 row mt-5">
+                    <a href="#" class="btn btn-primary input-btn col-2">提交</a>
+                    <div class="col-1"></div>
+                    <a href="#" class="btn btn-danger input-btn col-2">重置</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="../../static/js/jquery-3.4.1.js"></script>
+<script src="../../static/js/bootstrap.js"></script>
+<script>
+    $(".list-group-One").hover(function () {
+        $(".list-group-boxTwo").fadeOut(700);
+        $(".list-group-boxOne").fadeIn(700);
+        $(".list-group-One").addClass("orangered");
+        $(".list-group-Two").removeClass("orangered");
+    })
+    $(".list-group-Two").hover(function () {
+        $(".list-group-boxTwo").fadeIn(700);
+        $(".list-group-boxOne").fadeOut(700);
+        $(".list-group-Two").addClass("orangered");
+        $(".list-group-One").removeClass("orangered");
+    })
+    $(".m-manage-li a").click(function () {
+        $(".m-manage-li").removeClass("m-active");
+        $(this).addClass("orangered").parents("ul").hasClass("m-manage-li").addClass("m-active");
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品列表</title>
+    <link rel="stylesheet" href="../../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../../static/css/me.css">
+    <script src="https://kit.fontawesome.com/3a26109221.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!--内容-->
+<div class="container-fluid" style="background: #f1f2f7;height: 700px">
+    <div class="row">
+        <div class="col-12">
+            <!--table信息-->
+            <div class="row mt-3">
+                <table class="table">
+                    <tr>
+                        <th>卡片名称</th>
+                        <th>卡片价格</th>
+                        <th>卡片存货</th>
+                        <th>卡片用途</th>
+                    </tr>
+                    <tr>
+                        <td>普卡</td>
+                        <td>5$/月</td>
+                        <td>3000</td>
+                        <td>普通vip</td>
+                    </tr>
+                    <tr>
+                        <td>银卡</td>
+                        <td>8$/月</td>
+                        <td>3000</td>
+                        <td>vip1</td>
+                    </tr>
+                    <tr>
+                        <td>金卡</td>
+                        <td>12$/月</td>
+                        <td>3000</td>
+                        <td>vip2</td>
+                    </tr>
+                    <tr>
+                        <td>钻卡</td>
+                        <td>20$/月</td>
+                        <td>3000</td>
+                        <td>vip3</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../static/js/jquery-3.4.1.js"></script>
+<script src="../../static/js/bootstrap.js"></script>
+<script>
+    $(".list-group-One").hover(function () {
+        $(".list-group-boxTwo").fadeOut(700);
+        $(".list-group-boxOne").fadeIn(700);
+        $(".list-group-One").addClass("orangered");
+        $(".list-group-Two").removeClass("orangered");
+    })
+    $(".list-group-Two").hover(function () {
+        $(".list-group-boxTwo").fadeIn(700);
+        $(".list-group-boxOne").fadeOut(700);
+        $(".list-group-Two").addClass("orangered");
+        $(".list-group-One").removeClass("orangered");
+    })
+    $(".m-manage-li a").click(function () {
+        $(".m-manage-li").removeClass("m-active");
+        $(this).addClass("orangered").parents("ul").hasClass("m-manage-li").addClass("m-active");
+    })
+</script>
+</body>
+</html>
