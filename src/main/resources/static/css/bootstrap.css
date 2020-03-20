@@ -5478,6 +5478,7 @@ a.badge-dark:focus, a.badge-dark.focus {
 }
 
 .list-group {
+  list-style: none!important;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-direction: column;

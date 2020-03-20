@@ -14,7 +14,6 @@ a:hover{
     color: #666666;
 }
 .welcome{
-
 }
 .welcome-i{
     color: #666666;
@@ -45,7 +44,10 @@ m-active{
 .m-manage-li:hover i{
     color: orangered;
 }
-
+.m-manage-li-span{
+    transition: .5s;
+    transform: rotate(360deg);
+}
 
 .m-manage-li i{
     font-size: 10px!important;
@@ -158,13 +160,28 @@ m-active{
     position: absolute;
     top: 50px;
     width: 100%;
+    background-color: white;
     z-index: 1328;
+}
+.list-group-boxOne table tr{
+    border: none!important;
+}
+.list-group-boxOne-ul-li{
+   border-left: none;
+   border-top: none;
+   border-right: none;
+}
+.no-border-tlr{
+    border-top: none!important;
+    border-left: none!important;
+    border-right: none!important;
 }
 .list-group-boxTwo {
     position: absolute;
     top: 50px;
     width: 100%;
     z-index: 1327;
+    background-color: white;
 }
 .list-group-boxOne span{
     font-size: 14px!important;

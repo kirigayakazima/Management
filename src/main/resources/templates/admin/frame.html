@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5 ">
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理系统</title>
+    <link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+    <script src="https://kit.fontawesome.com/3a26109221.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<nav class="container-fluid head-nav fixed-top">
+    <div class="row">
+        <div class="col-4 m-auto">
+            <ul class="nav">
+                <li class="nav-item"><a class="nav-link" href="#"><h5><i class="fas fa-align-justify welcome-i"></i>&nbsp;后台管理系统
+                </h5></a></li>
+            </ul>
+        </div>
+        <div class="col-8 m-auto">
+            <ul class="nav">
+                <li class="nav-item nav-ul-li">
+                    <a class="nav-link" href="#">消息管理</a>
+                </li>
+                <li class="nav-item nav-ul-li">
+                    <a class="nav-link" href="#">会员管理</a>
+                </li>
+                <li class="nav-item nav-ul-li">
+                    <a class="nav-link" href="#">订单管理</a>
+                </li>
+                <li class="nav-item nav-ul-li">
+                    <a class="nav-link" href="#">更多</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!--内容-->
+<div class="container-fluid m-content">
+    <div class="row">
+        <div class="col-2 text-left m-fixed-clo-2 m-right-down">
+            <div class="welcome" sec:authorize="isAuthenticated()">
+                <a><i></i>欢迎管理员:<span sec:authentication="name"></span></a>
+            </div>
+            <div class="welcome" sec:authorize="!isAuthenticated()">
+                <a href="#" th:href="@{admin/toLogin}"><i></i>请<span>登录</span></a>
+            </div>
+            <ul class="nav flex-column">
+                <!--商品管理-->
+                <li class="nav-item m-manage-li m-active">
+                    <a href="product.html" th:href="@{admin/product.html}" target="myframe"
+                       class="nav-link nav-title"><i class="fas fa-flag"></i>&nbsp;商品管理<span
+                            class="m-manage-li-span float-right">+</span></a>
+                    <ul class="nav flex-column m-manage-li-ul">
+                        <li class="nav-item">
+                            <a href="product.html" target="myframe" th:href="@{admin/product.html}" class="nav-link">商品列表</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="product-input.html" target="myframe" th:href="@{admin/product-input.html}"
+                               class="nav-link">添加新商品</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="kind.html" target="myframe" th:href="@{admin/kind.html}" class="nav-link">类别列表</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="kind-input.html" target="myframe" th:href="@{admin/kind-input.html}"
+                               class="nav-link">添加新类别</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!--订单管理-->
+                <li class="nav-item m-manage-li">
+                    <a href="#" class="nav-link"><i class="fas fa-shopping-cart"></i>&nbsp;订单管理<span
+                            class="m-manage-li-span float-right">+</span></a>
+                    <ul class="nav flex-column m-manage-li-ul">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">订单列表</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!--会员管理-->
+                <li class="nav-item m-manage-li">
+                    <a href="#" class="nav-link"><i class="fas fa-users"></i>&nbsp;会员管理<span
+                            class="m-manage-li-span float-right">+</span></a>
+                    <ul class="nav flex-column m-manage-li-ul">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">会员列表</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!--信息通知-->
+                <li class="nav-item m-manage-li">
+                    <a href="#" class="nav-link"><i class="fas fa-volume-up"></i>&nbsp;信息通知<span
+                            class="m-manage-li-span float-right">+</span></a>
+                    <ul class="nav flex-column m-manage-li-ul">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">站内消息/留言</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!--系统设置-->
+                <li class="nav-item m-manage-li">
+                    <a href="#" class="nav-link"><i class="fas fa-cogs"></i>&nbsp;系统设置<span class="m-manage-li-span float-right">+</span></a>
+                    <ul class="nav flex-column m-manage-li-ul">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">数据备份</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="col-10 col-10-container" style="background: #f1f2f7">
+            <!--头-->
+            <div class="row text-left m-fixed-clo-10-head">
+                <div class="col-12 m-auto">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a href="index.html" target="myframe" th:href="@{admin/index.html}"
+                               class="nav-link m-btn text-left">首页<i class="fas fa-times ml-4"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" target="myframe" class="nav-link m-btn text-left">帮助中心<i
+                                    class="fas fa-times ml-2"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" target="myframe" class="nav-link m-btn text-left">奖金管理<i
+                                    class="fas fa-times ml-2"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" target="myframe" class="nav-link m-btn text-left">产品管理<i
+                                    class="fas fa-times ml-2"></i></a>
+                        </li>
+                        <li class="nav-item float-right" sec:authorize="isAuthenticated()">
+                            <a href="#" th:href="@{/logout}" class="nav-link m-btn text-left">退出<i
+                                    class="fas fa-times ml-2"></i></a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <iframe name="myframe" style="margin-left: -20px;border: none;background: #f1f2f7;" width="1300px"
+                    height="620px" src="index.html" th:src="@{admin/index}" id="myframe"></iframe>
+
+            <!--footer-->
+            <div class="row m-footer text-center text-white">
+                <div class="col-10 mt-1">
+                    <i class="fas fa-copyright"></i> Designed By 清羽玄儿</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../static/js/jquery-3.4.1.js" th:src="@{/js/jquery-3.4.1.js}"></script>
+<script src="../../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+<script>
+    $(".list-group-One").hover(function () {
+        $(".list-group-boxTwo").fadeOut(300);
+        $(".list-group-boxOne").fadeIn(500);
+        $(".list-group-One").addClass("orangered");
+        $(".list-group-Two").removeClass("orangered");
+    })
+    $(".list-group-Two").hover(function () {
+        $(".list-group-boxTwo").fadeIn(500);
+        $(".list-group-boxOne").fadeOut(300);
+        $(".list-group-Two").addClass("orangered");
+        $(".list-group-One").removeClass("orangered");
+    })
+
+    $(".m-manage-li").hover(function () {
+        $(".m-manage-li-span").text("+");
+        $(this).children("a").children(".m-manage-li-span").text("-");
+        $(".m-manage-li").css({"height": "34px", "background-color": "#2a3542"}).removeClass("orangered");
+        $(this).css({"height": "180px", "background-color": "#35404D"}).addClass("orangered");
+
+    })
+    $(".m-manage-li a").click(function () {
+        $(".m-manage-li a").removeClass("orangered");
+        $(this).addClass("orangered");
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理系统</title>
+    <link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+    <script src="https://kit.fontawesome.com/3a26109221.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container-fluid" style="background: #f1f2f7;min-height: 1200px">
+        <div class="row">
+            <div class="col-12">
+                <div class="row mt-5">
+                    <div class="col-2 m-auto card-info">
+                        <div class="row text-center">
+                            <div class="col-4 m-auto col-10-container-second-row-i-box" style="background-color: #6CCAC9;padding: 23px 0">
+                                <i class="fas fa-users col-10-container-second-row-i" ></i>
+                            </div>
+                            <div class="col-8 m-bg-white">
+                                <h2 th:text="${query.accountCount}"></h2>
+                                <h6>团队数量</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-2 m-auto card-info">
+                        <div class="row text-center">
+                            <div class="col-4 m-auto col-10-container-second-row-i-box" style="background-color:#FF6C60;padding: 23px 0">
+                                <i class="fas fa-chart-area col-10-container-second-row-i"></i>
+                            </div>
+                            <div class="col-8 m-bg-white">
+                                <h4 th:text="${#numbers.formatDecimal(query.todayIncomeMoney,1,0)}+'$'"></h4>
+                                <h6>今日收入</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-2 m-auto card-info">
+                        <div class="row text-center">
+                            <div class="col-4 m-auto col-10-container-second-row-i-box" style="background-color:#F8D347;padding: 23px 0">
+                                <i class="fas fa-shopping-cart col-10-container-second-row-i"></i>
+                            </div>
+                            <div class="col-8 m-bg-white">
+                                <h2 th:text="${query.count}"></h2>
+                                <h6>商品数量</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-2 m-auto card-info">
+                        <div class="row  text-center">
+                            <div class="col-4 m-auto col-10-container-second-row-i-box" style="background-color: #57C8F2;padding: 23px 0">
+                                <i class="fas fa-yen-sign col-10-container-second-row-i"></i>
+                            </div>
+                            <div class="col-8 m-bg-white">
+                                <h4 th:text="${#numbers.formatDecimal(query.incomeMoney,1,0)}+'$'"></h4>
+                                <h6>全部收入</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--table信息-->
+        <div class="row mt-3">
+            <div class="col-7">
+                <h6 class="text-left border-bottom pb-3">信息概况</h6>
+                <table class="table text-center mt-3">
+                    <tr>
+                        <th>团队统计</th>
+                        <th>全部会员</th>
+                        <th>全部未激活</th>
+                        <th>今日新增</th>
+                        <th>活跃率</th>
+                    </tr>
+                    <tr th:each="list:${plist}">
+                        <td th:text="${list.name}"></td>
+                        <td th:text="${list.count}"></td>
+                        <td th:text="${list.count}-${list.activeCount}"></td>
+                        <td th:text="'+'+${list.todayActiveCount}"></td>
+<!--                        <td th:text="${list.activeCount}/${list.count}*100+'%'"></td>-->
+                        <td th:text="${#numbers.formatDecimal(list.activeCount*100.0/list.count,2,3)}+'%'"></td>
+                    </tr>
+                </table>
+                <table class="table text-center mt-3">
+                    <tr>
+                        <th>资金统计</th>
+                        <th>账户总收入</th>
+                        <th>账户总支出</th>
+                        <th>今日收入</th>
+                        <th>利润率</th>
+                    </tr>
+
+                    <tr th:each="list:${plist}">
+                        <td th:text="${list.name}"></td>
+                        <td th:text="${list.activeCount}*${list.price}+'$'"></td>
+                        <td th:text="${list.cost}*${list.count}+'$'"></td>
+                        <td th:text="${list.price}*${list.todayActiveCount}+'$'"></td>
+<!--                        <td th:text="${list.price}*${list.todayActiveCount}/(${list.cost}*${list.count})*100+'%'"></td>-->
+                        <td th:text="${#numbers.formatDecimal(list.price*list.todayActiveCount*100.0/(list.count*list.cost),1,3)}+'%'"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-5">
+                <div class="ml-3 mr-3 income" style="background: #42cac0">
+                    <p class="mr-2 ml-5 text-white">全盘收入: <span th:text="${query.incomeMoney}"></span></p>
+                    <p class="mr-2 ml-5 text-white">全盘支出: <span th:text="${query.costMoney}"></span></p>
+                    <p class="mr-2 ml-5 text-white">全盘利润: <span th:text="(${query.incomeMoney}-${query.costMoney})"></span></p>
+                    <p class="text-white display-4 font-weight-bold" style="background: #39b7ac"><span class="ml-5" th:text="${#numbers.formatDecimal(((query.incomeMoney)-(query.costMoney))*100.0/query.costMoney,2,2)}+'%'"></span><span style="font-size: 16px;">全盘拨出</span></p>
+                </div>
+                <div class="ml-3 mr-3 income mt-3" style="background: #a6d669">
+                    <p class="mr-2 ml-5 text-white">全盘收入: <span th:text="${query.incomeMoney}"></span></p>
+                    <p class="mr-2 ml-5 text-white">全盘支出: <span th:text="${query.costMoney}"></span></p>
+                    <p class="mr-2 ml-5 text-white">全盘利润: <span th:text="(${query.incomeMoney}-${query.costMoney})"></span></p>
+                    <p class="text-white display-4 font-weight-bold" style="background: #99c262"><span class="ml-5" th:text="${#numbers.formatDecimal(((query.incomeMoney)-(query.costMoney))*100.0/query.costMoney,2,2)+'%'}"></span><span style="font-size: 16px;">全盘拨出</span></p>
+                </div>
+                <div class="ml-3 mr-3 income mt-3">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="#" class="list-group-One orangered">其他信息</a>
+                            <a href="#" class="ml-5 list-group-Two">工作进度表</a>
+                        </li>
+                        <div class="list-group-boxOne border" style="padding: -10px 0!important;">
+                            <ul class="list-group no-border-tlr">
+                                <li class="list-group-item no-border-tlr">
+                                    <a href="#" class="text-dark col-4 text-left">卡种信息</a>
+                                    <a href="#" class="float-right text-dark col-8 text-center">消耗</a>
+                                </li>
+                            </ul>
+                            <ul th:each="list:${plist}" class="list-group">
+                                <li class="list-group-item list-group-boxOne-ul-li">
+                                    <div class="row">
+                                        <div class="col-4 text-left" >
+                                            <span th:text="${list.id}"></span>
+                                            <span th:text="${list.name}" class="ml-3"></span>
+                                        </div>
+                                        <div class="col-8 ">
+                                            <div class="progress mt-1">
+                                                <div class="m-progress progress-bar progress-bar-striped progress-bar-animated"
+                                                     th:style="'width:'+${#numbers.formatInteger(list.activeCount*100/list.count,2)}+'%'"
+                                                     th:data-progress="${list.activeCount}==0?'无消耗':'有消耗'"
+                                                     th:text="${list.activeCount}==0?'无消耗':(${#numbers.formatInteger(list.activeCount*100/list.count,2)})+'%'"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="list-group-boxTwo">
+                            <table class="table text-center">
+                                <tr>
+                                    <th>商品</th>
+                                    <th>收益</th>
+                                    <th>预计</th>
+                                    <th>增长</th>
+                                    <th>用途</th>
+                                </tr>
+                                <tr class="expect-tr" th:each="list:${plist}">
+                                    <td th:text="${list.name}"></td>
+                                    <td th:text="${#numbers.formatDecimal(list.price*list.activeCount,0,0)}+'$'"></td>
+                                    <td class="expect" th:data-expect="${list.todayActiveCount}==0?'今日无收益':'今日有收益'"
+                                        th:text="(${list.todayActiveCount}==0?'0':(${#numbers.formatInteger(((list.count)-(list.activeCount))/list.todayActiveCount,0)})+'天清仓')">
+                                    </td>
+                                    <td class="increase" th:text="${#numbers.formatDecimal(list.todayActiveCount*100.0/list.count,1,3)}+'%'"></td>
+                                    <td th:text="${list.application}"></td>
+                                </tr>
+                            </table>
+                        </div>
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="../../static/js/jquery-3.4.1.js" th:src="@{/js/jquery-3.4.1.js}"></script>
+    <script src="../../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+    <script>
+
+    $(document).ready(function(){
+        $(".m-progress").each(function (index,Element) {
+            if ($(Element).data("progress")==="无消耗"){
+                // console.log(Element);
+                // console.log("index:"+index+" activeAcount:"+$(Element).data("progress"));
+                $(Element).removeClass("progress-bar progress-bar-striped")
+                    .addClass("text-dark text-center")
+                    .css({"width":"100%"}).text("无消耗");
+            }
+            // else {
+            //     console.log("index:"+index+" activeAcount:"+$(Element).data("progress"));
+            // }
+        })
+        $(".expect-tr").each(function (index,Element) {
+           if ($(Element).children(".expect").text()=="0天清仓"){
+               $(Element).children(".expect").addClass("orangered").text("已经清仓");
+           }else {
+               if ($(Element).children(".expect").data("expect")=="今日无收益"){
+                   $(Element).children(".expect").addClass("text-primary").text("满仓");
+               }
+           }
+        })
+        $(".list-group-One").hover(function () {
+            $(".list-group-boxTwo").fadeOut(300);
+            $(".list-group-boxOne").fadeIn(500);
+            $(".list-group-One").addClass("orangered");
+            $(".list-group-Two").removeClass("orangered");
+        })
+        $(".list-group-Two").hover(function () {
+            $(".list-group-boxTwo").fadeIn(500);
+            $(".list-group-boxOne").fadeOut(300);
+            $(".list-group-Two").addClass("orangered");
+            $(".list-group-One").removeClass("orangered");
+        })
+
+        $(".m-manage-li a").click(function () {
+            $(".m-manage-li").removeClass("m-active");
+            $(this).addClass("orangered").parents("ul").hasClass("m-manage-li").addClass("m-active");
+        })
+    })
+
+
+
+
+
+    </script>
+</body>
+</html>

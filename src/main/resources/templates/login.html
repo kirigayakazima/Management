@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>登录</title>
-    <link rel="stylesheet" href="../../static/css/bootstrap.css">
-    <link rel="stylesheet" href="../../static/css/iconfont.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" href="../static/css/iconfont.css" th:href="@{/css/iconfont.css}">
 <style>
     body{
-        background: url(../../static/img/89.png) no-repeat;
+        background: url(../static/img/89.png) no-repeat;
         background-size: cover;
     }
     h1{
@@ -51,30 +51,39 @@
         background-color: red; /* 不支持线性的时候显示 */
        background-image: linear-gradient(to right,darkgrey,skyblue);
     }
+    .btn{
+        color: white;
+        font-weight: bold;
+        background-image: linear-gradient(to right,rgba(255,255,255,0.7),skyblue);
+    }
+    .btn:hover{
+        color: #f1b0b7;
+    }
 </style>
 </head>
-<body>
+<body th:style="'background:url(' + @{/img/89.png} + ');'">
 <div class="login-box">
     <div class="ml-6">
         <h1 class="my-login">Login</h1>
     </div>
     <div class="container">
-        <form action="" class="form-group row text-center">
+        <form action="" method="post" th:action="@{/toLogin}"  class="form-group row text-center">
             <div class="col-12 mt-5">
-                <span class="iconfont icon-icon-user col-3"></span><input class="col-9" type="text" placeholder="请输入用户名">
+                <span class="iconfont icon-icon-user col-3"></span><input name="username" class="col-9" type="text" placeholder="请输入用户名">
             </div>
             <div class="col-12 mt-3">
-                <span class="iconfont icon-lock col-3"></span><input class="col-9" type="password" placeholder="请输入密码">
+                <span class="iconfont icon-lock col-3"></span><input  name="password" class="col-9" type="password" placeholder="请输入密码">
             </div>
             <div class="col-12 mt-5">
-                <a class="btn col-4">Login</a>
+                <input type="submit" class="btn col-4"  th:value="Login" />
             </div>
 
         </form>
 
     </div>
 </div>
-<script src="../../static/js/jquery-3.4.1.js"></script>
+<script src="../static/js/jquery-3.4.1.js" th:src="@{/js/jquery-3.4.1.js}"></script>
+<script src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
 <script>
     $(".login-box").one("click",function () {
         $(".my-login").css({transform:"rotate(360deg)"});

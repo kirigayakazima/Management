@@ -1,46 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>商品列表</title>
-    <link rel="stylesheet" href="../../static/css/bootstrap.css">
-    <link rel="stylesheet" href="../../static/css/me.css">
+    <link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
     <script src="https://kit.fontawesome.com/3a26109221.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <!--内容-->
 <div class="container-fluid" style="background: #f1f2f7;height: 700px">
+    <input id="msg" type="hidden"  th:value="${success}">
             <!--table信息-->
      <div class="row mt-3">
-                <table class="table">
+                <table class="table text-center">
                     <tr>
                         <th>商品分类</th>
                         <th>类别描述</th>
+                        <th></th>
                     </tr>
-                    <tr>
-                        <td>普通vip</td>
-                        <td>5$/月</td>
-                    </tr>
-                    <tr>
-                        <td>vip1</td>
-                        <td>8$/月</td>
-                    </tr>
-                    <tr>
-                        <td>vip2</td>
-                        <td>12$/月</td>
-                    </tr>
-                    <tr>
-                        <td>vip3</td>
-                        <td>20$/月</td>
+                    <tr th:each="list:${klist}">
+                        <td th:text="${list.kindName}"></td>
+                        <td th:text="${list.description}"></td>
+                        <td>
+                            <a href="#" class="btn btn-primary btn-sm" th:href="@{/admin/kind/input/{id}(id=${list.id})}">编辑</a>
+                            <a href="#" class="btn btn-danger btn-sm" th:href="@{/admin/kind/delete/{id}(id=${list.id})}">删除</a>
+                        </td>
                     </tr>
                 </table>
 
             </div>
 </div>
 
-<script src="../../static/js/jquery-3.4.1.js"></script>
-<script src="../../static/js/bootstrap.js"></script>
+<script src="../../static/js/jquery-3.4.1.js" th:src="@{/js/jquery-3.4.1.js}"></script>
+<script src="../../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
 <script>
+    let msg=$("#msg").val();
+    if (msg!=null && msg.length!=0){
+        alert(msg);
+    }
+
     $(".list-group-One").hover(function () {
         $(".list-group-boxTwo").fadeOut(700);
         $(".list-group-boxOne").fadeIn(700);

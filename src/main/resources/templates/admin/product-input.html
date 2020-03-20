@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>商品列表</title>
-    <link rel="stylesheet" href="../../static/css/bootstrap.css">
-    <link rel="stylesheet" href="../../static/css/me.css">
+    <link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
     <script src="https://kit.fontawesome.com/3a26109221.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -13,48 +13,52 @@
     <!--table信息-->
     <div class="row pt-5">
         <div class="col-12">
-            <form class="container">
+            <form class="container" method="post" th:action="@{/admin/product-input}">
+                <input type="hidden" id="msg" th:value="${msg}">
+                <input type="hidden" name="id" th:value="${product}?${product.id}">
                 <div class="form-group row text-center m-auto">
                     <div class="col-12 row mt-5">
                         <span class="col-1 btn btn-secondary add-name">商品名称</span>
-                        <input type="text" class="add-input form-control border col-3">
+                        <input th:value="${product}?${product.name}:''" type="text" name="name" class="add-input form-control border col-3">
 
                         <div class="col-2">
 
                         </div>
                         <span class="col-1 btn btn-secondary add-name">商品价格</span>
-                        <input type="text" class="add-input form-control border col-3">
+                        <input th:value="${product}?${product.price}:''" type="text" name="price" class="add-input form-control border col-3">
                     </div>
 
                     <div class="col-12 row mt-4">
                         <span class="col-1 btn btn-secondary add-name">商品存货</span>
-                        <input type="text" class="add-input form-control border col-3">
+                        <input th:value="${product}?${product.count}:''" type="text" name="count" class="add-input form-control border col-3">
                         <div class="col-2">
 
                         </div>
                         <span class="col-1 btn btn-secondary add-name">商品用途</span>
-                        <input type="text" class="add-input form-control border col-3">
+                        <input th:value="${product}?${product.application}:''" type="text" name="application" class="add-input form-control border col-3">
                     </div>
                     <div class="col-12 row mt-4 form-group">
                         <span class="col-1 btn btn-secondary add-name">商品分类</span>
 
-                        <select class="form-control col-3" id="sel1">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
+                        <select class="form-control col-3" id="sel1" name="kind">
+                            <option th:selected="${product}?${product.kind.id}==${list.id}" th:each="list:${klist}" th:value="${list.id}" th:text="${list.kindName}"></option>
                         </select>
                         <div class="col-2">
                         </div>
+
+                        <span class="col-1 btn btn-secondary add-name">商品原价</span>
+                        <input th:value="${product}?${product.cost}:''" type="text"  name="cost" class="add-input form-control border col-3">
+
                     </div>
+
                     <div class="col-12 row mt-3">
                         <span class="col-1 btn btn-secondary add-name">商品描述</span>
-                        <input type="text" class="add-input form-control border col-11">
+                        <input th:value="${product}?${product.description}:''" type="text" name="description" class="add-input form-control border col-11">
                     </div>
                     <div class="col-12 row mt-5">
-                        <a href="#" class="btn btn-primary input-btn col-2">提交</a>
+                        <input type="submit" class="btn btn-primary input-btn col-2" th:value="提交">
                         <div class="col-1"></div>
-                        <a href="#" class="btn btn-danger input-btn col-2">重置</a>
+                        <input type="reset" class="btn btn-danger input-btn col-2" th:value="重置">
                     </div>
                 </div>
             </form>
@@ -62,9 +66,15 @@
     </div>
 </div>
 
-<script src="../../static/js/jquery-3.4.1.js"></script>
-<script src="../../static/js/bootstrap.js"></script>
+<script src="../../static/js/jquery-3.4.1.js" th:src="@{/js/jquery-3.4.1.js}"></script>
+<script src="../../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
 <script>
+    //输入有问题的返回msg信息,显示失败,名称为空或者名称重复
+    var msg=$("#msg").val();
+    if (msg!=null && msg.length!=0){
+        alert(msg);
+    }
+
     $(".list-group-One").hover(function () {
         $(".list-group-boxTwo").fadeOut(700);
         $(".list-group-boxOne").fadeIn(700);
