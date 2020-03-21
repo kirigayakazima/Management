@@ -50,5 +50,10 @@ public class KindServiceImpl implements KindService {
         return kindDao.save(kind);
     }
 
+    @Override
+    public List<Kind> findAllByName(String kindName) {
+        return kindDao.findAllByKindName(kindName);
+    }
+
 
 }

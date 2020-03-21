@@ -45,6 +45,7 @@ public class ProductServiceImpl implements ProductService {
         productDao.deleteById(id);
     }
 
+    @Transactional
     @Override
     public Product update(Product product) {
         return productDao.save(product);

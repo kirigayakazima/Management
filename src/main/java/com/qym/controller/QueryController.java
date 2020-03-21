@@ -108,22 +108,40 @@ public class QueryController {
         if (kind.getKindName().equals("")) {
             model.addAttribute("msg","种类名不能为空");
         }else {
-            Kind k=kindService.findByKindName(kind.getKindName());
-            if (k!=null){
-                //数据库中有此种类
-                if (kind.getId()==null){
-                    //无id,创建新的kind
-                    model.addAttribute("msg","种类名不能重复,请重新输入");
-                }else{
+            Kind modify=kindService.findByKindName(kind.getKindName());
+            if (kind.getId()!=null){
+                //数据库查到的编辑id的对象的原始数据
+                Kind origin=kindService.getById(kind.getId());
+                //查到的编辑id修改的name在数据库中的对象
+                //判断一下,如果name未改变,那么modify和origin的name相同,同时修改成功,
+                //如果name改变了,那么modify和origin的name不相同,修改失败
+                //如果modify不存在,那么就修改成功
+                if (modify!=null){
+                    if(origin.getKindName().equals(modify.getKindName())){
+                        //原始数据,name未改动
+                        kindService.update(kind);
+                        attributes.addFlashAttribute("success","修改成功");
+                        return "redirect:/admin/kind";
+                    }else if (!origin.getKindName().equals(modify.getKindName())){
+                        model.addAttribute("msg","修改失败:种类名重复,请重新输入");
+                    }
+                }else if(modify==null){
+                    //修改了name
                     kindService.update(kind);
                     attributes.addFlashAttribute("success","修改成功");
                     return "redirect:/admin/kind";
                 }
             }else {
-                //数据库中无此种类
-                kindService.save(kind);
-                attributes.addFlashAttribute("success","添加成功");
-                return "redirect:/admin/kind";
+                if (modify!=null){
+                    //数据库中有此种类
+                    //无id,创建新的kind
+                    model.addAttribute("msg","种类名不能重复,请重新输入");
+                }else {
+                    //数据库中无此种类
+                    kindService.save(kind);
+                    attributes.addFlashAttribute("success","添加成功");
+                    return "redirect:/admin/kind";
+                }
             }
         }
         return "admin/kind-input";
@@ -150,8 +168,8 @@ public class QueryController {
     @GetMapping({"/admin/product","/admin/product.html"})
     public String product(Model model){
         //查询所有的卡种信息
-       List<Product> list=productService.findAll();
-       model.addAttribute("plist",list);
+        List<Product> list=productService.findAll();
+        model.addAttribute("plist",list);
         return "admin/product";
     }
 
@@ -165,34 +183,50 @@ public class QueryController {
             model.addAttribute("msg","添加失败,商品名称不能为空");
             return "admin/product-input";
         }else {
-            Product p= productService.findByName(product.getName());
-            if(p!=null){
-                //数据库中有此种类
-                if (product.getId()==null){
-                    model.addAttribute("msg","添加失败,有重复的名称,请重新输入名称");
+                Product modify= productService.findByName(product.getName());
+                if (product.getId()!=null) {
+                    Product origin = productService.getById(product.getId());
+                    if (modify!=null && origin.getName().equals(modify.getName())){
+                        //如果origin和modify的name相同,则未修改名称
+                        product.setLastEditTime(new Date());
+                        product.setTodayActiveCount(origin.getTodayActiveCount());
+                        product.setActiveCount(origin.getActiveCount());
+                        productService.update(product);
+                        attributes.addFlashAttribute("success","修改成功");
+                        return "redirect:/admin/product";
+                    }else if (modify==null){
+                        //如果modify不存在,则修改成功
+                        product.setLastEditTime(new Date());
+                        product.setTodayActiveCount(origin.getTodayActiveCount());
+                        product.setActiveCount(origin.getActiveCount());
+                        productService.update(product);
+                        attributes.addFlashAttribute("success","修改成功");
+                        return "redirect:/admin/product";
+                    }else if (!origin.getName().equals(modify.getName()) &&modify!=null){
+                        //如果origin和modify名称不一样,modify存在,则重名
+                        model.addAttribute("msg","添加失败:商品名称不能重复,请重新输入名称");
+                    }
+
+
                 }else {
-                    product.setId(p.getId());
-                    product.setLastEditTime(new Date());
-                    product.setTodayActiveCount(p.getTodayActiveCount());
-                    product.setActiveCount(p.getActiveCount());
-                    productService.update(product);
-                    attributes.addFlashAttribute("success","修改成功");
-                    return "redirect:/admin/product";
+                    //product没有id,本次提交为新增
+                    if (modify!=null){
+                        model.addAttribute("msg","添加失败:商品名称不能重复,请重新输入名称");
+                    }else {
+                        //没有重复名字
+                        product.setCreateTime(new Date());
+                        product.setLastEditTime(new Date());
+                        //设置全新的active数量
+                        product.setTodayActiveCount(0);
+                        product.setActiveCount(0);
+                        productService.save(product);
+                        attributes.addFlashAttribute("success","添加成功");
+                        return "redirect:/admin/product";
+                    }
                 }
-            }else {
-                //数据库中无此种类
-                product.setCreateTime(new Date());
-                product.setLastEditTime(new Date());
-                product.setActiveCount(new Integer(0));
-                product.setTodayActiveCount(new Integer(0));
-                productService.save(product);
-                attributes.addFlashAttribute("success","添加成功");
-                return "redirect:/admin/product";
-            }
             return "admin/product-input";
         }
     }
-
     @GetMapping("/admin/product/input/{id}")
     public String productEditor(Model model,@PathVariable String id){
         Product p= productService.getById(new Integer(id));

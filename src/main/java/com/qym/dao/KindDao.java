@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.util.List;
 
 public interface KindDao extends JpaRepository<Kind,Integer> {
     Kind findByKindName(String kindName);
@@ -19,4 +20,5 @@ public interface KindDao extends JpaRepository<Kind,Integer> {
 
     Kind getById(Integer id);
 
+    List<Kind> findAllByKindName(String kindName);
 }

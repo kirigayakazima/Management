@@ -198,7 +198,7 @@
         })
         $(".expect-tr").each(function (index,Element) {
            if ($(Element).children(".expect").text()=="0天清仓"){
-               $(Element).children(".expect").addClass("orangered").text("已经清仓");
+               $(Element).children(".expect").addClass("orangered").text("已清仓");
            }else {
                if ($(Element).children(".expect").data("expect")=="今日无收益"){
                    $(Element).children(".expect").addClass("text-primary").text("满仓");
@@ -206,14 +206,14 @@
            }
         })
         $(".list-group-One").hover(function () {
-            $(".list-group-boxTwo").fadeOut(300);
-            $(".list-group-boxOne").fadeIn(500);
+            $(".list-group-boxTwo").css({"opacity":"0"})
+            $(".list-group-boxOne").css({"opacity":"1"})
             $(".list-group-One").addClass("orangered");
             $(".list-group-Two").removeClass("orangered");
         })
         $(".list-group-Two").hover(function () {
-            $(".list-group-boxTwo").fadeIn(500);
-            $(".list-group-boxOne").fadeOut(300);
+            $(".list-group-boxTwo").css({"opacity":"1"})
+            $(".list-group-boxOne").css({"opacity":"0"})
             $(".list-group-Two").addClass("orangered");
             $(".list-group-One").removeClass("orangered");
         })

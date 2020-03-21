@@ -160,8 +160,9 @@ m-active{
     position: absolute;
     top: 50px;
     width: 100%;
+    transition: .5s;
     background-color: white;
-    z-index: 1328;
+    /*z-index: 1328;*/
 }
 .list-group-boxOne table tr{
     border: none!important;
@@ -180,7 +181,9 @@ m-active{
     position: absolute;
     top: 50px;
     width: 100%;
-    z-index: 1327;
+    /*z-index: 1327;*/
+    opacity: 0;
+    transition: .5s;
     background-color: white;
 }
 .list-group-boxOne span{

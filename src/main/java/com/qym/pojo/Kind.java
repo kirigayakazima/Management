@@ -17,7 +17,6 @@ public class Kind {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotEmpty(message="种类名称不能为空")
     private String kindName;
 
     private String description;

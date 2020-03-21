@@ -18,4 +18,6 @@ public interface KindService {
     void delete(Integer id);
 
     Kind update(Kind kind);
+
+    List<Kind> findAllByName(String kindName);
 }
