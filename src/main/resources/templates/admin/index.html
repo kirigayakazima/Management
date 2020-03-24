@@ -6,9 +6,151 @@
     <link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
     <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
     <script src="https://kit.fontawesome.com/3a26109221.js" crossorigin="anonymous"></script>
+    <style>
+        .marquee {
+
+            margin: 0 auto;
+            overflow: hidden;
+            white-space: nowrap;
+            box-sizing: border-box;
+            animation: marquee 50s linear infinite;
+        }
+
+        .marquee:hover {
+            animation-play-state: paused
+        }
+
+        /* Make it move */
+        @keyframes marquee {
+            0%   { text-indent: 27.5em }
+            100% { text-indent: -105em }
+        }
+
+        /* Make it pretty */
+        .microsoft {
+            padding-left: 1.5em;
+            position: relative;
+            font: 16px 'Segoe UI', Tahoma, Helvetica, Sans-Serif;
+        }
+
+        /* ::before was :before before ::before was ::before - kthx */
+        .microsoft:before, .microsoft::before {
+            z-index: 1390;
+            content: '';
+            position: absolute;
+            top: -1em; left: -1em;
+            width: .5em; height: .5em;
+        }
+
+        .microsoft:after, .microsoft::after {
+            z-index: 1389;
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 2em; height: 2em;
+            background-image: linear-gradient(90deg, white 70%, rgba(255,255,255,0));
+        }
+        .my-boll{
+            width: 200px;
+            height: 200px;
+            margin: 200px auto;
+            position: relative;
+        }
+        .boll{
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #6CCAC9;
+        }
+        .boll-1{
+            top: 0;
+            left: 170px;
+            animation: boll-1-move 2s ease;
+            animation-iteration-count: infinite;
+            animation-direction: normal;
+        }
+        .boll-2{
+            top: 170px;
+            left: 0;
+            animation: boll-2-move 2s ease;
+            animation-iteration-count: infinite;
+            animation-direction: inherit;
+        }
+
+        @keyframes boll-1-move {
+            0%{
+                top: 0;
+                left: 170px;
+                transform: scale(1.8) rotate(0deg);
+            }
+            25%{
+                top: 170px;
+                left: 170px;
+                transform: scale(1) rotate(90deg);
+            }
+            50%{
+                top: 170px;
+                left: 0px;
+                transform: scale(1.8) rotate(180deg);
+            }
+            75%{
+                top: 0px;
+                left: 0px;
+                transform: scale(1) rotate(270deg);
+            }
+            100%{
+                top: 0px;
+                left: 170px;
+                transform: scale(1.8) rotate(360deg);
+            }
+        }
+
+        @keyframes boll-2-move {
+            0%{
+                top: 170px;
+                left: 0px;
+                transform: scale(1.8) rotate(0deg);
+            }
+            25%{
+                top: 0px;
+                left: 0px;
+                transform: scale(1) rotate(90deg);
+            }
+            50%{
+                top: 0px;
+                left: 170px;
+                transform: scale(1.8) rotate(180deg);
+            }
+            75%{
+                top: 170px;
+                left: 170px;
+                transform: scale(1) rotate(270deg);
+            }
+            100%{
+                top: 170px;
+                left: 0px;
+                transform: scale(1.8) rotate(360deg);
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container-fluid" style="background: #f1f2f7;min-height: 1200px">
+<div class="my-boll">
+    <div class="boll boll-1"></div>
+    <div class="boll boll-2"></div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <p class="col-2 text-right">通知:</p><p class="col-10 microsoft marquee">本项目还在测试中,只有菜单栏第一栏的功能和首页功能可以正常使用
+        <a href="https://github.com/kirigayakazima/Management">源码请转到https://github.com/kirigayakazima/Management</a>,
+        如果您在使用本项目的过程中出现bug,欢迎您提交issue.
+    </p>
+    </div>
+</div>
+
+
+    <div class="container-fluid index-content" style="background: #f1f2f7;min-height: 1200px;display:none;">
         <div class="row">
             <div class="col-12">
                 <div class="row mt-5">
@@ -181,6 +323,7 @@
 
     <script src="../../static/js/jquery-3.4.1.js" th:src="@{/js/jquery-3.4.1.js}"></script>
     <script src="../../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+    <script src="../../static/js/me.js" th:src="@{/js/me.js}"></script>
     <script>
 
     $(document).ready(function(){

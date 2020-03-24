@@ -1,2 +1,18 @@
 server:
   port: 8082
+spring:
+  thymeleaf:
+    cache: false
+  datasource:
+    url: jdbc:mysql://localhost:3306/management?characterEncoding=utf8&useSSL=true&serverTimezone=UTC
+    username: management
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+  mvc:
+    favicon:
+      enabled: false

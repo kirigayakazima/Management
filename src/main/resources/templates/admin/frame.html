@@ -11,6 +11,12 @@
     <script src="https://kit.fontawesome.com/3a26109221.js" crossorigin="anonymous"></script>
 </head>
 <body>
+<div class="container my-load">
+    <div class="progress my-load-progress" >
+        <div class="progress-bar my-load-progress-bar" style="width:0"></div>
+    </div>
+    <div class="my-load-text">0%</div>
+</div>
 <nav class="container-fluid head-nav fixed-top">
     <div class="row">
         <div class="col-4 m-auto">
@@ -151,7 +157,8 @@
             <!--footer-->
             <div class="row m-footer text-center text-white">
                 <div class="col-10 mt-1">
-                    <i class="fas fa-copyright"></i> Designed By 清羽玄儿</span>
+                    <span>Copyright © 2019 - 2020 Kiyori Designed by 清羽玄儿,本站仅作为测试学习用,不作为商业用途</span>
+                    <span><a href="http://www.beian.miit.gov.cn/">鄂ICP备 20001808号-1</a></span>
                 </div>
             </div>
         </div>
@@ -160,7 +167,12 @@
 
 <script src="../../static/js/jquery-3.4.1.js" th:src="@{/js/jquery-3.4.1.js}"></script>
 <script src="../../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+<script src="../../static/js/me.js" th:src="@{/js/me.js}"></script>
 <script>
+
+
+
+
     $(".list-group-One").hover(function () {
         $(".list-group-boxTwo").fadeOut(300);
         $(".list-group-boxOne").fadeIn(500);

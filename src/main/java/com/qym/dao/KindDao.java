@@ -21,4 +21,5 @@ public interface KindDao extends JpaRepository<Kind,Integer> {
     Kind getById(Integer id);
 
     List<Kind> findAllByKindName(String kindName);
+
 }

@@ -5,9 +5,11 @@
     <title>登录</title>
     <link rel="stylesheet" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
     <link rel="stylesheet" href="../static/css/iconfont.css" th:href="@{/css/iconfont.css}">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
 <style>
     body{
-        background: url(../static/img/89.png) no-repeat;
+        background-image: url(../static/img/89.png);
+        background-repeat: no-repeat;
         background-size: cover;
     }
     h1{
@@ -17,6 +19,7 @@
         line-height: 40px;
     }
     .login-box{
+        display: none;
         height: 300px;
         background-color: rgba(135,206,235,0.4);
         width: 640px;
@@ -61,7 +64,13 @@
     }
 </style>
 </head>
-<body th:style="'background:url(' + @{/img/89.png} + ');'">
+<body th:style="'background-image:url(' + @{/img/89.png} + ');background-repeat: no-repeat;background-size: cover;'">
+<div class="container my-load">
+    <div class="progress my-load-progress" >
+        <div class="progress-bar my-load-progress-bar" style="width:0"></div>
+    </div>
+    <div class="my-load-text">0%</div>
+</div>
 <div class="login-box">
     <div class="ml-6">
         <h1 class="my-login">Login</h1>
@@ -84,6 +93,7 @@
 </div>
 <script src="../static/js/jquery-3.4.1.js" th:src="@{/js/jquery-3.4.1.js}"></script>
 <script src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+<script src="../../static/js/me.js" th:src="@{/js/me.js}"></script>
 <script>
     $(".login-box").one("click",function () {
         $(".my-login").css({transform:"rotate(360deg)"});

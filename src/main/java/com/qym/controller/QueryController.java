@@ -159,9 +159,18 @@ public class QueryController {
     }
 
     @GetMapping({"/admin/kind/delete/{id}"}) public String kindDelete(@PathVariable String id,RedirectAttributes attributes){
-        kindService.delete(new Integer(id));
-        attributes.addFlashAttribute("success","删除成功");
-        return "redirect:/admin/kind";
+        Kind k= kindService.getById(new Integer(id));
+        List<Product> plist =k.getProduct();
+        if (plist.size()>0){
+            System.out.println(plist.size());
+            attributes.addFlashAttribute("success","删除失败,该种类已被使用");
+            return "redirect:/admin/kind";
+        }else {
+            kindService.delete(new Integer(id));
+            attributes.addFlashAttribute("success","删除成功");
+            return "redirect:/admin/kind";
+        }
+
     }
 
 

@@ -3,10 +3,39 @@ body,html{
     margin: 0;
     text-decoration: none!important;
 }
+/***********网页加载进度条**************/
+.my-load{
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+    width: 220px;
+    height: 8px;
+    box-sizing: border-box;
+
+}
+.my-load-progress{
+    width: 220px;
+    height: 8px;
+
+    background-color: #fff;
+    border: 1px black solid;
+}
+.my-load-progress-bar{
+    background-color: #000000;
+    margin: 1px;
+    border: 5px black solid!important;
+}
+.my-load-text{
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
 a:hover{
     cursor: pointer;
 }
 .head-nav{
+    display: none;
     background-color: #f1f2f7;
 }
 .head-nav a{
@@ -19,6 +48,7 @@ a:hover{
     color: #666666;
 }
 .m-content{
+    display: none;
     overflow: hidden;
 }
 .m-content a{

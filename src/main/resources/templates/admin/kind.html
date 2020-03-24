@@ -40,22 +40,6 @@
         alert(msg);
     }
 
-    $(".list-group-One").hover(function () {
-        $(".list-group-boxTwo").fadeOut(700);
-        $(".list-group-boxOne").fadeIn(700);
-        $(".list-group-One").addClass("orangered");
-        $(".list-group-Two").removeClass("orangered");
-    })
-    $(".list-group-Two").hover(function () {
-        $(".list-group-boxTwo").fadeIn(700);
-        $(".list-group-boxOne").fadeOut(700);
-        $(".list-group-Two").addClass("orangered");
-        $(".list-group-One").removeClass("orangered");
-    })
-    $(".m-manage-li a").click(function () {
-        $(".m-manage-li").removeClass("m-active");
-        $(this).addClass("orangered").parents("ul").hasClass("m-manage-li").addClass("m-active");
-    })
 </script>
 </body>
 </html>
